@@ -1,14 +1,178 @@
-# Run and deploy your AI Studio app
+# 🏥 Precision for Medicine - Intelligent Data Analyzer
 
-This contains everything you need to run your app locally.
+[![React](https://img.shields.io/badge/React-19.1.1-blue.svg)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8.2-blue.svg)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-6.2.0-purple.svg)](https://vitejs.dev/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-## Run Locally
+> **Intelligent clinical trial data analysis powered by Google Gemini AI**
 
-**Prerequisites:**  Node.js
+A modern web-based tool designed to intelligently compare clinical trial patient data against standard reference ranges. Streamline the process of identifying discrepancies in lab results with AI-powered analysis.
 
+## ✨ Key Features
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+- 🔄 **Smart Data Comparison** - AI-powered analysis using Google Gemini API
+- 📊 **Intuitive File Upload** - Drag-and-drop support for Excel files
+- 👥 **Gender-Specific Analysis** - Accurate reference range application
+- 📈 **Instant Summary Reports** - Categorized results for quick review
+- 🔒 **Privacy-First Design** - Client-side processing, no data storage
+- 📥 **Export Capabilities** - Download annotated Excel reports
+- 🎨 **Modern UI** - Clean, responsive interface with Tailwind CSS
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Modern web browser (Chrome, Firefox, Safari, Edge)
+- Google Gemini API key
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd precision-for-medicine
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Configure API Key**
+   - Get your API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
+   - Set the environment variable: `API_KEY=your_api_key_here`
+
+4. **Run the application**
+   ```bash
+   npm run dev
+   ```
+
+5. **Open in browser**
+   - Navigate to `http://localhost:5173`
+   - Or simply open `index.html` in your browser
+
+## 📋 Usage Guide
+
+### 1. Prepare Your Data
+
+#### Patient Data File (`.xlsx`)
+Required columns:
+- `LBTEST` - Lab test name (e.g., "Hemoglobin")
+- `LBORRES` - Patient result (e.g., "14.5" or "Negative")
+- `Gender` - Patient gender (e.g., "Male", "Female")
+
+#### Reference Data File (`.xlsx`)
+Required columns:
+- `Parameter` - Lab test name
+- `Normal Range` - Reference range (e.g., "13.8-17.2", "<100", "Negative")
+- `Gender/Notes` - Applicable gender (e.g., "Male", "Female", "Both")
+
+### 2. Upload and Analyze
+
+1. **Upload Patient Data** - Drag and drop or select your patient data file
+2. **Upload Reference Data** - Upload your reference ranges file
+3. **Run Analysis** - Click "Compare Data" to start AI-powered analysis
+4. **Review Results** - Check the summary for matched, discrepancies, and errors
+5. **Download Report** - Export annotated Excel file with results
+
+## 🏗️ Technical Architecture
+
+### Tech Stack
+
+- **Frontend Framework** - React 19.1.1 with TypeScript
+- **Build Tool** - Vite 6.2.0
+- **Styling** - Tailwind CSS
+- **AI Engine** - Google Gemini API (@google/genai)
+- **Excel Processing** - SheetJS (xlsx)
+- **Architecture** - Single Page Application (SPA)
+
+### Project Structure
+
+```
+precision-for-medicine/
+├── 📁 components/           # React UI components
+│   ├── FileUpload.tsx      # File upload interface
+│   ├── Header.tsx          # Application header
+│   └── 📁 icons/
+│       └── Logo.tsx        # Application logo
+├── 📁 services/            # External API services
+│   └── geminiService.ts    # Google Gemini integration
+├── 📁 utils/               # Helper utilities
+│   ├── excelGenerator.ts   # Excel report generation
+│   └── excelParser.ts      # Excel file parsing
+├── 🎯 App.tsx              # Main application component
+├── 📄 index.html           # HTML entry point
+├── ⚡ index.tsx            # React root renderer
+├── 📊 metadata.json        # Application metadata
+├── 🔧 types.ts             # TypeScript definitions
+└── 📖 README.md            # This file
+```
+
+## 🔐 Security & Privacy
+
+- **Client-Side Processing** - All data processing happens in the browser
+- **No Data Storage** - Patient data is never stored on servers
+- **Privacy-First** - Only non-identifiable clinical values are sent for AI analysis
+- **Secure API** - API keys are handled securely via environment variables
+
+## 📊 Analysis Categories
+
+The tool categorizes results into four main groups:
+
+- ✅ **Matched** - Results within normal range
+- ⚠️ **Discrepancies** - Results outside normal range
+- 🔍 **Not Found** - Patient tests without corresponding reference ranges
+- ❌ **Errors** - Processing issues or invalid data
+
+## 🛠️ Development
+
+### Available Scripts
+
+```bash
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+### Environment Variables
+
+```bash
+# Required for AI functionality
+API_KEY=your_google_gemini_api_key_here
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🆘 Support
+
+For support and questions:
+- 📧 Create an issue on GitHub
+- 📚 Check the documentation above
+- 🔍 Review the code comments for implementation details
+
+---
+
+<div align="center">
+
+**Made with ❤️ for precision medicine**
+
+[![GitHub stars](https://img.shields.io/github/stars/yourusername/precision-for-medicine?style=social)](https://github.com/yourusername/precision-for-medicine)
+[![GitHub forks](https://img.shields.io/github/forks/yourusername/precision-for-medicine?style=social)](https://github.com/yourusername/precision-for-medicine)
+
+</div>
