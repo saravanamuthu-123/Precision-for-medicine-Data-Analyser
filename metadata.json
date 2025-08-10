@@ -1,5 +1,5 @@
 {
-  "name": "Precision for Medicine Data Comparator",
+  "name": "Intelligent Data Analyzer",
   "description": "An intelligent tool to compare clinical trial patient data against reference ranges, highlighting discrepancies for review. Powered by Gemini for smart analysis.",
   "requestFramePermissions": [],
   "prompt": ""

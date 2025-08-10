@@ -213,9 +213,6 @@ const App: React.FC = () => {
         </div>
       </main>
       <footer className="text-center py-6 text-sm text-gray-500 bg-gray-100 mt-8">
-        <p className="mb-2">
-          &copy; {new Date().getFullYear()} Precision for Medicine. All rights reserved.
-        </p>
         <p className="max-w-3xl mx-auto px-4 text-xs text-gray-600">
           <strong>Privacy Assurance:</strong> This tool is designed with patient confidentiality as a priority. Personal identifying information is not required, processed, or exposed to any AI model. Only the non-identifiable clinical values you provide are used for the comparison analysis.
         </p>

@@ -1,4 +1,4 @@
-# 🏥 Precision for Medicine - Intelligent Data Analyzer
+# 🏥 Intelligent Data Analyzer
 
 [![React](https://img.shields.io/badge/React-19.1.1-blue.svg)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8.2-blue.svg)](https://www.typescriptlang.org/)
@@ -31,7 +31,7 @@ A modern web-based tool designed to intelligently compare clinical trial patient
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd precision-for-medicine
+   cd intelligent-data-analyzer
    ```
 
 2. **Install dependencies**
@@ -90,12 +90,10 @@ Required columns:
 ### Project Structure
 
 ```
-precision-for-medicine/
+intelligent-data-analyzer/
 ├── 📁 components/           # React UI components
 │   ├── FileUpload.tsx      # File upload interface
-│   ├── Header.tsx          # Application header
-│   └── 📁 icons/
-│       └── Logo.tsx        # Application logo
+│   └── Header.tsx          # Application header
 ├── 📁 services/            # External API services
 │   └── geminiService.ts    # Google Gemini integration
 ├── 📁 utils/               # Helper utilities
@@ -170,9 +168,9 @@ For support and questions:
 
 <div align="center">
 
-**Made with ❤️ for precision medicine**
+**Made with ❤️ for intelligent data analysis**
 
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/precision-for-medicine?style=social)](https://github.com/yourusername/precision-for-medicine)
-[![GitHub forks](https://img.shields.io/github/forks/yourusername/precision-for-medicine?style=social)](https://github.com/yourusername/precision-for-medicine)
+[![GitHub stars](https://img.shields.io/github/stars/yourusername/intelligent-data-analyzer?style=social)](https://github.com/yourusername/intelligent-data-analyzer)
+[![GitHub forks](https://img.shields.io/github/forks/yourusername/intelligent-data-analyzer?style=social)](https://github.com/yourusername/intelligent-data-analyzer)
 
 </div>

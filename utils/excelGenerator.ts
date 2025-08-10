@@ -57,5 +57,5 @@ export const downloadResultsAsExcel = (results: ResultRow[], originalHeaders: st
 
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, "Comparison Results");
-  XLSX.writeFile(workbook, "Precision_for_Medicine_Comparison_Results.xlsx");
+      XLSX.writeFile(workbook, "Data_Comparison_Results.xlsx");
 };
