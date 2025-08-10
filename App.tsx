@@ -4,7 +4,7 @@ import Header from './components/Header';
 import FileUpload from './components/FileUpload';
 import { PatientDataRow, ReferenceDataRow, ResultRow, ComparisonStatus } from './types';
 import { parseExcelFile } from './utils/excelParser';
-import { getComparisonStatus } from './services/geminiService';
+import { processWithLLM, LLMProvider } from './services/llmServiceSelector';
 import { downloadResultsAsExcel } from './utils/excelGenerator';
 
 const App: React.FC = () => {
@@ -47,45 +47,25 @@ const App: React.FC = () => {
         referenceMap.get(key)!.push(row);
       });
       
-      const comparisonPromises: Promise<ResultRow>[] = patientData.map(async (pRow) => {
-        const testName = pRow.LBTEST?.toString().trim().toLowerCase();
-        let status: ComparisonStatus = 'Not Found';
-        let requiredValue: string | undefined;
-        let refToUse: ReferenceDataRow | undefined;
-
-        if (testName) {
-          let bestMatchKey: string | undefined;
-          for (const refKey of referenceMap.keys()) {
-              if (testName.includes(refKey) || refKey.includes(testName)) {
-                  if (!bestMatchKey || refKey.length > bestMatchKey.length) {
-                      bestMatchKey = refKey;
-                  }
-              }
-          }
-
-          if (bestMatchKey) {
-            const matchingRefs = referenceMap.get(bestMatchKey);
-            if (matchingRefs) {
-              const patientGender = pRow.Gender?.toString().trim().toLowerCase();
-              const specificGenderMatch = matchingRefs.find(r => r['Gender/Notes']?.toString().trim().toLowerCase() === patientGender);
-              const bothGenderMatch = matchingRefs.find(r => r['Gender/Notes']?.toString().trim().toLowerCase() === 'both');
-              refToUse = specificGenderMatch || bothGenderMatch || matchingRefs[0];
-            }
-          }
+      // Use LLM service with provider selection (default to Gemini)
+      const provider: LLMProvider = 'groq'; // Can be changed to 'groq' or 'ollama'
+      const bulkResults = await processWithLLM(
+        provider,
+        patientData, 
+        referenceMap,
+        (processed, total) => {
+          setProgress(processed);
+          setTotalRows(total);
         }
-        
-        if (refToUse) {
-            status = await getComparisonStatus(pRow, refToUse);
-            if (status === 'Unmatched') {
-                requiredValue = refToUse['Normal Range'];
-            }
-        }
-        
-        setProgress(prev => prev + 1);
-        return { ...pRow, status, requiredValue };
-      });
-
-      const settledResults = await Promise.all(comparisonPromises);
+      );
+      
+      // Convert bulk results to ResultRow format
+      const settledResults: ResultRow[] = bulkResults.map(result => ({
+        ...result.row,
+        status: result.status,
+        requiredValue: result.requiredValue
+      }));
+      
       setResults(settledResults);
 
     } catch (e) {

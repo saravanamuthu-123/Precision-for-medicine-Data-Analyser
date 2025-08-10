@@ -141,9 +141,62 @@ npm run preview
 ### Environment Variables
 
 ```bash
-# Required for AI functionality
-API_KEY=your_google_gemini_api_key_here
+# Required for AI functionality (choose one or more)
+VITE_API_KEY=your_google_gemini_api_key_here
+VITE_GROQ_API_KEY=your_groq_api_key_here
 ```
+
+### LLM Provider Options
+
+The application supports multiple LLM providers to handle different use cases and rate limits:
+
+#### 1. **Google Gemini** (Default)
+- **Free Tier**: 50 requests/day
+- **Batch Size**: 15 comparisons per API call
+- **Setup**: Requires `VITE_API_KEY` environment variable
+- **Best for**: High accuracy, structured responses
+
+#### 2. **Groq** (Recommended for Free Tier)
+- **Free Tier**: 1000 requests/day
+- **Batch Size**: 20 comparisons per API call
+- **Setup**: Requires `VITE_GROQ_API_KEY` environment variable
+- **Best for**: High volume processing, no rate limits
+
+
+
+### Switching LLM Providers
+
+To switch providers, modify the `provider` variable in `App.tsx`:
+
+```typescript
+const provider: LLMProvider = 'groq'; // Change to 'gemini' or 'groq'
+```
+
+### Rate Limiting Configuration
+
+Each provider has its own configuration in their respective service files:
+
+**Gemini** (`services/geminiService.ts`):
+```typescript
+const CONFIG = {
+  BATCH_SIZE: 15, // Number of comparisons per API call
+  DELAY_BETWEEN_BATCHES: 4000, // Milliseconds between batches
+  MAX_RETRIES: 5, // Maximum retry attempts for failed batches
+  RETRY_DELAY_MULTIPLIER: 2 // Multiply delay by this factor on retries
+};
+```
+
+**Groq** (`services/groqService.ts`):
+```typescript
+const GROQ_CONFIG = {
+  BATCH_SIZE: 20, // Larger batches possible
+  DELAY_BETWEEN_BATCHES: 1000, // Faster processing
+  MAX_RETRIES: 3,
+  RETRY_DELAY_MULTIPLIER: 1.5
+};
+```
+
+
 
 ## 🤝 Contributing
 
